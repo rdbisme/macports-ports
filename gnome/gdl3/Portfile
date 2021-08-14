@@ -6,7 +6,7 @@ PortGroup           gobject_introspection 1.0
 name                gdl3
 set gname           gdl
 version             3.34.0
-revision            1
+revision            3
 license             LGPL
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          gnome devel
@@ -41,7 +41,8 @@ depends_lib         port:gtk3 \
 
 gobject_introspection yes
 
-patchfiles          patch-pixbuf-use-g_object_unref.diff
+patchfiles          patch-pixbuf-use-g_object_unref.diff \
+                    patch-gdl_dock_object_class_set_is_compound.diff
 
 # reconfigure using upstream autogen.sh for intltool 0.51 compatibility
 
