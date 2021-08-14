@@ -9,8 +9,8 @@ cmake.generator     Ninja
 
 name                inkscape-gtk3-devel
 conflicts           inkscape inkscape-devel
-set git_commit      42f2371f
-set git_date        20190429
+set git_commit      5fe48f0c
+set git_date        20210730
 revision            4
 version             1.0alpha-${git_date}
 license             GPL-2 LGPL-2.1
@@ -35,7 +35,7 @@ post-fetch {
 }
 
 set python_major    3
-set python_minor    7
+set python_minor    9
 set python_version  ${python_major}${python_minor}
 
 depends_build-append \
@@ -56,6 +56,7 @@ depends_lib-append \
                     port:gsl \
                     port:glibmm \
                     port:gtkmm3 \
+                    port:gtk-osx-application-gtk3 \
                     port:gtkspell3 \
                     port:aspell \
                     port:dbus-glib \
@@ -67,6 +68,7 @@ depends_lib-append \
                     port:libvisio-0.1 \
                     port:libwpg-0.3 \
                     port:libyaml \
+                    port:pango \
                     port:potrace \
                     port:python${python_version} \
                     port:py${python_version}-lxml \
@@ -76,7 +78,7 @@ post-patch {
     reinplace "s|\"python-interpreter\", \"python\"|\"python-interpreter\", \"python${python_major}.${python_minor}\"|g" ${worksrcpath}/src/extension/implementation/script.cpp
     reinplace "s|^#include \"Object.h\"|#include \"${prefix}/include/poppler/Object.h\"|" ${worksrcpath}/src/extension/internal/pdfinput/pdf-parser.h
     reinplace "s|^#include \"Object.h\"|#include \"${prefix}/include/poppler/Object.h\"|" ${worksrcpath}/src/extension/internal/pdfinput/pdf-parser.cpp
-    reinplace "s|lib/inkscape|lib|" ${worksrcpath}/src/CMakeLists.txt
+    reinplace {s|${CMAKE_INSTALL_LIBDIR}/inkscape|${CMAKE_INSTALL_LIBDIR}|}
 }
 
 # py-numpy is currently not universal (#48263).
